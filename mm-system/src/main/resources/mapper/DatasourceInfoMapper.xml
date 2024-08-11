@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mm.system.mapper.DatasourceInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mm.system.domain.DatasourceInfoPO">
+        <id column="id" property="id"/>
+        <result column="data_source_name" property="dataSourceName"/>
+        <result column="db_ip" property="dbIp"/>
+        <result column="db_port" property="dbPort"/>
+        <result column="db_user_name" property="dbUserName"/>
+        <result column="db_password" property="dbPassword"/>
+        <result column="db_name" property="dbName"/>
+        <result column="db_url" property="dbUrl"/>
+        <result column="db_driver" property="dbDriver"/>
+        <result column="min_size" property="minSize"/>
+        <result column="max_size" property="maxSize"/>
+        <result column="init_size" property="initSize"/>
+        <result column="type" property="type"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, data_source_name, db_ip, db_port, db_user_name, db_password, db_name, db_url, db_driver, min_size, max_size, init_size, type
+    </sql>
+
+    <select id="nameExist" resultType="long">
+        select
+        id
+        from
+        datasource_info
+        where
+        logic_del = 0
+        and data_source_name = #{name}
+        <if test=" excludeId != null ">
+            and  id != #{excludeId}
+        </if>
+        limit 1
+    </select>
+
+    <select id="queryPage" resultType="com.mm.system.domain.DatasourceInfoPO">
+       select
+           <include refid="Base_Column_List"/>
+       from
+            datasource_info
+        <where>
+            logic_del = 0
+            <if test="query.dbIp !=null and query.dbIp!= ''">
+              and db_ip = #{query.dbIp}
+            </if>
+            <if test="query.dataSourceName != null and query.dataSourceName != ''">
+                and data_source_name = #{query.dataSourceName}
+            </if>
+            <if test="query.dbPort != null and query.dbPort != ''">
+                and db_port = #{query.dbPort}
+            </if>
+            <if test="query.dbUserName != null and query.dbUserName != ''">
+                and db_user_name = #{query.dbUserName}
+            </if>
+            <if test="query.dbPassword != null and query.dbPassword != ''">
+                and db_password = #{query.dbPassword}
+            </if>
+            <if test="query.dbName != null and query.dbName != ''">
+                and db_name = #{query.dbName}
+            </if>
+            <if test="query.minSize != null">
+                and min_size = #{query.minSize}
+            </if>
+            <if test="query.maxSize != null">
+                and max_size = #{query.maxSize}
+            </if>
+            <if test="query.initSize != null">
+                and init_size = #{query.initSize}
+            </if>
+            <if test="query.type !=null and query.type!= ''">
+                and type = #{query.type}
+            </if>
+        </where>
+    </select>
+
+</mapper>

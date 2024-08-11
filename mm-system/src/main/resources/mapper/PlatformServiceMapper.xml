@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mm.system.mapper.PlatformServiceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mm.system.domain.PlatformServicePO">
+        <id column="id" property="id" />
+        <result column="service_name" property="serviceName" />
+        <result column="service_type" property="serviceType" />
+        <result column="business_type" property="businessType" />
+        <result column="safety_level" property="safetyLevel" />
+        <result column="service_status" property="serviceStatus" />
+        <result column="restriction" property="restriction" />
+        <result column="service_desc" property="serviceDesc" />
+        <result column="limit_total" property="limitTotal" />
+        <result column="version" property="version" />
+        <result column="create_time" property="createTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_by" property="updateBy" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, service_name, service_type, business_type, safety_level, service_status, restriction, service_desc, limit_total, version, create_time, create_by, update_time, update_by
+    </sql>
+
+    <select id="nameExist" resultType="java.lang.Long">
+        select
+            id
+        from
+            platform_service
+        where
+            service_name = #{name}
+            <if test=" excludeId != null ">
+                and id != #{excludeId}
+            </if>
+        limit 1
+    </select>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mm.system.mapper.ApiParamMapper">
+
+    <resultMap type="com.mm.system.domain.ApiParamPO" id="ApiParamResult">
+        <result property="id"    column="id"    />
+        <result property="apiId"    column="api_id"    />
+        <result property="paramType"    column="param_type"    />
+        <result property="fieldName"    column="field_name"    />
+        <result property="fieldType"    column="field_type"    />
+        <result property="required"    column="required"    />
+        <result property="remark"    column="remark"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, api_id, param_type, field_name, field_type, required, remark, create_time, update_time,
+    </sql>
+
+</mapper>

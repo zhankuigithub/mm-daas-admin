@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mm.system.mapper.ApiBaseMapper">
+
+    <resultMap type="com.mm.system.domain.ApiBasePO" id="ApiBaseResult">
+        <result property="id"    column="id"    />
+        <result property="apiName"    column="api_name"    />
+        <result property="apiPath"    column="api_path"    />
+        <result property="reqMethod"    column="req_method"    />
+        <result property="respType"    column="resp_type"    />
+        <result property="apiDescription"    column="api_description"    />
+        <result property="templateSql"    column="template_sql"    />
+        <result property="apiStatus"    column="api_status"    />
+        <result property="dataSourceId"    column="data_source_id"    />
+        <result property="mainTableName"    column="main_table_name"    />
+        <result property="sourceTableName"    column="source_table_name"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="execType"    column="exec_type"    />
+        <result property="openHump"    column="open_hump"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="deleted"    column="deleted"    />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, api_name, api_path, req_method, resp_field, api_description, template_sql, api_status, data_source_id, main_table_name, category_id, source_table_name, exec_type, create_time, create_by, update_time, update_by, deleted
+    </sql>
+
+</mapper>
