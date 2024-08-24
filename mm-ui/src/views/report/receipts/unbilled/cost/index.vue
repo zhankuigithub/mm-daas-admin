@@ -27,9 +27,11 @@
 
 
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
-      <el-table-column label="ID" align="center" prop="id"/>
-      <el-table-column label="名称" align="center" prop="name"/>
-      <el-table-column label="天数" align="center" prop="day"/>
+      <el-table-column label="序号" align="center" prop=""/>
+      <el-table-column label="托运人名称" align="center" prop=""/>
+      <el-table-column label="业务机构名称" align="center" prop=""/>
+      <el-table-column label="司机运费总额" align="center" prop=""/>
+      <el-table-column label="备注" align="center" prop=""/>
     </el-table>
     <pagination
       v-show="total > 0"
@@ -76,7 +78,7 @@
     methods: {
       getList() {
         this.loading = true;
-        this.$api.report.reportInfo('car/list', this.queryParams).then((response) => {
+        this.$api.report.reportInfo('receipts/unbilled/cost', this.queryParams).then((response) => {
           this.list = response.result.page.list;
           this.total = response.result.page.rowsCount;
           this.loading = false;
