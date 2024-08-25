@@ -503,7 +503,6 @@ export default {
     };
   },
   created() {
-    this.initSelect();
     if (this.opType === "EDIT" || this.opType === "SHOW") {
       this.form = cloneDeep(this.record);
       const id = this.form.id;
@@ -525,36 +524,6 @@ export default {
   methods: {
     watchSql(val) {
       this.form.templateSql = val;
-    },
-    clickAddProblems(rows, type) {
-      let temp = {
-        key: Math.random(),
-        apiId: null,
-        fieldName: null,
-        fieldType: "String",
-        paramType: type,
-        required: 1,
-        remark: null,
-      };
-      let apiParamsOrReturns =
-        type === 1 ? this.form.apiParams : this.form.apiReturns;
-      if (
-        apiParamsOrReturns.length === 0 ||
-        (apiParamsOrReturns.slice(-1)[0].fieldName &&
-          apiParamsOrReturns.slice(-1)[0].fieldType)
-      ) {
-        apiParamsOrReturns.push(temp);
-      } else {
-        this.$modal.msgError("请先填写完成上一个参数");
-      }
-    },
-    clickRemoveProblems(row, type) {
-      let apiParamsOrReturns =
-        type === 1 ? this.form.apiParams : this.form.apiReturns;
-      let index = apiParamsOrReturns.findIndex((x) => x.key === row.key);
-      if (index !== -1) {
-        apiParamsOrReturns.splice(index, 1);
-      }
     },
     /** 提交按钮 */
     submitForm() {
@@ -578,17 +547,9 @@ export default {
     },
     resolveResponse(res) {
       if (res.code === 200) {
-        handleCommonTrip("success", res.message);
+        this.$modal.msgSuccess(res.message);
         this.cancel();
         this.$emit("refreshTable");
-      }
-    },
-    underscoreToCamel(row) {
-      const str = row.fieldName;
-      if (this.form.openHump === 1) {
-        row.fieldName = str.replace(/_([a-z])/g, function (match, letter) {
-          return letter.toUpperCase();
-        });
       }
     },
     initSelect() {

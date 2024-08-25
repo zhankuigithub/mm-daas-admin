@@ -2,10 +2,6 @@ package com.mm.web.application.service;
 
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.mm.web.domain.service.PlatformApplicationDomainService;
-import com.mm.web.domain.service.PlatformServiceDomainService;
-import com.mm.web.domain.service.ServiceAuthorizationDomainService;
-import com.mm.common.exception.ServiceException;
 import com.mm.system.domain.command.ApiBaseCommand;
 import com.mm.system.domain.dto.ApiBaseDTO;
 import com.mm.system.domain.dto.PageResultDTO;
@@ -17,11 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-/**
- * @author:
- * Date: 2023/3/30 16:28
- * Desc:
- */
+
 @Component
 @RequiredArgsConstructor
 @DS("slave")
@@ -30,25 +22,6 @@ public class ApiBaseApplicationService {
     /** 接口 */
     private final ApiBaseDomainService apiBaseDomainService;
 
-    /** 平台服务 */
-    private final PlatformServiceDomainService platformServiceDomainService;
-
-    /** 平台应用 */
-    private final PlatformApplicationDomainService platformApplicationDomainService;
-
-    /** 服务授权 */
-    private final ServiceAuthorizationDomainService serviceAuthorizationDomainService;
-
-    /**
-     * <p> 外部查询 </p>
-     *
-     * @param apiName 接口名称
-     * @param params  动态参数
-     * @return Object
-     **/
-    public Object outerExecute(String apiName, Map<String, Object> params) {
-        return apiBaseDomainService.outerExecute(apiName, params);
-    }
 
     /**
      * <p> 新增接口 </p>
@@ -69,9 +42,6 @@ public class ApiBaseApplicationService {
     public boolean deleteApi(Long id) {
         PlatformServicePageQuery query = new PlatformServicePageQuery();
         query.setApiIds(Collections.singletonList(id));
-        if (platformServiceDomainService.hasService(query)) {
-            throw new ServiceException("该接口关联有服务信息，不可以删除~");
-        }
         return apiBaseDomainService.deleteApi(id);
     }
 

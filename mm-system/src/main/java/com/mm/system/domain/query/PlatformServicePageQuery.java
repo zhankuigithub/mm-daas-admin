@@ -7,11 +7,7 @@ import lombok.experimental.Accessors;
 
 import java.util.List;
 
-/**
- * @author:
- * Date: 2023/4/7 15:38
- * Desc:
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "PlatformServicePageQuery", description = "平台服务分页查询")

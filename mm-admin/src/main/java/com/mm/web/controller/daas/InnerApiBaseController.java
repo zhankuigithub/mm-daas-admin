@@ -14,14 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
-/**
- * 接口信息Controller
- *
- * @author
- * @date 2023-03-30
- */
+
 @Api(tags = "api内部相关接口")
 @RestController
 @RequiredArgsConstructor
@@ -91,20 +85,6 @@ public class InnerApiBaseController {
         return ResponseHelper.success(apiBaseApplicationService.listQuery(query));
     }
 
-
-
-    /**
-     * <p> 通过api名称获取执行</p>
-     *
-     * @param apiName api名称
-     * @param params  动态参数（可选择传递的参数 pageNum“页码” pageSize“大小”）
-     * @return api接口相应
-     **/
-    @RequestMapping("/test/{apiName}")
-    @ApiModelProperty("查询报表")
-    public ResponseMessage<Object> outerQuery(@PathVariable String apiName, @RequestBody(required = false) Map<String, Object> params) {
-        return ResponseHelper.success(apiBaseApplicationService.outerExecute(apiName, params));
-    }
 
     /**
      * 获取详情

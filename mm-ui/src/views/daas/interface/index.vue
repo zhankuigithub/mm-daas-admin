@@ -456,28 +456,6 @@ export default {
           this.dataSourceMap = map;
         }
       });
-      this.$api.application.serviceList().then((res) => {
-        if (res.code === 200) {
-          this.relServices = res.result;
-
-          let map = new Map();
-          this.relServices.forEach((a) => {
-            map.set(a.id, a.serviceName);
-          });
-          this.serviceMap = map;
-        }
-      });
-
-      this.$api.category.list({}).then((res) => {
-        if (res.code === 200) {
-          this.categoryList = res.result;
-          let map = new Map();
-          this.categoryList.forEach((a) => {
-            map.set(a.id, a.categoryName);
-          });
-          this.categoryMap = map;
-        }
-      });
       this.getList();
     },
     handleUpdateDoc(row) {

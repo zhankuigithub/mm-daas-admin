@@ -14,14 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * <p>
- * 数据源相关接口
- * </p>
- *
- * @author
- * @date 2023-03-25
- */
+
 @Api(tags = "数据源相关接口")
 @RestController
 @RequiredArgsConstructor

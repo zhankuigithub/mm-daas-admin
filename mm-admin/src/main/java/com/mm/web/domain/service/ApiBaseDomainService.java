@@ -4,7 +4,6 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mm.common.exception.ServiceException;
@@ -12,17 +11,15 @@ import com.mm.common.utils.BeanConverter;
 import com.mm.system.design.JdbcTemplatePool;
 import com.mm.system.domain.ApiBaseLogPO;
 import com.mm.system.domain.ApiBasePO;
-import com.mm.system.domain.ApiDocPO;
-import com.mm.system.domain.ServiceApiRelationPO;
 import com.mm.system.domain.command.ApiBaseCommand;
 import com.mm.system.domain.command.ApiParamCommand;
 import com.mm.system.domain.dto.*;
 import com.mm.system.domain.enums.ExecEnum;
 import com.mm.system.domain.enums.ResultTypeExecEnum;
 import com.mm.system.domain.query.ApiBasePageQuery;
-import com.mm.system.service.*;
+import com.mm.system.service.IApiBaseLogRepository;
+import com.mm.system.service.IApiBaseRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -55,49 +52,12 @@ public class ApiBaseDomainService {
     /** 接口 */
     private final IApiBaseRepository apiBaseRepository;
 
-    /** 数据源 */
-    private final IDataSourceRepository dataSourceRepository;
-
     /** 接口参数 */
     private final ApiParamDomainService apiParamDomainService;
-
-    /** 接口文档 */
-    private final IApiDocRepository apiDocRepository;
-
-    /** 服务接口关系表 */
-    private final IServiceApiRelationRepository serviceApiRelationRepository;
 
     /** 动态报表操作日志 */
     private final IApiBaseLogRepository apiBaseLogRepository;
 
-
-    /**
-     * <p> 外部查询 </p>
-     *
-     * @param apiName 接口名称
-     * @param params  动态参数
-     * @return Object
-     **/
-    public Object outerExecute(String apiName, Map<String, Object> params) {
-        return this.execute(queryApiByName(apiName), params);
-    }
-
-    /**
-     * <p> 查询接口 </p>
-     *
-     * @param apiName 接口名称
-     * @return 接口实例
-     **/
-    private ApiBasePO queryApiByName(String apiName) {
-        if (StringUtils.isBlank(apiName)) {
-            throw new ServiceException("请输入接口名称");
-        }
-        ApiBasePO apiBasePersistent = apiBaseRepository.getOne(Wrappers.<ApiBasePO>lambdaQuery().eq(ApiBasePO::getApiName, apiName));
-        if (apiBasePersistent == null) {
-            throw new ServiceException("接口不存在");
-        }
-        return apiBasePersistent;
-    }
 
     /**
      * <p> 查询接口 </p>
@@ -316,32 +276,15 @@ public class ApiBaseDomainService {
      * @return PageResultDTO
      **/
     public PageResultDTO<ApiBaseDTO> pageQuery(ApiBasePageQuery query) {
-        if (ObjectUtils.isNotEmpty(query.getRelServiceId())) {
-            query.setIds(serviceApiRelationRepository.listApiIdByServerId(query.getRelServiceId()));
-        }
         Page<ApiBasePO> page = apiBaseRepository.pageQuery(query);
 
         List<ApiBaseDTO> list = new ArrayList<>();
 
         for (ApiBasePO apiBase : page.getRecords()) {
-            ApiDocPO apiDocPo = apiDocRepository.getOne(new LambdaQueryWrapper<ApiDocPO>().eq(ApiDocPO::getInterfaceId, apiBase.getId()));
             ApiBaseDTO apiBaseDto = BeanUtil.copyProperties(apiBase, ApiBaseDTO.class);
-            if (apiDocPo != null) {
-                apiBaseDto.setDoc(BeanUtil.copyProperties(apiDocPo, ApiDocDTO.class));
-            }
             list.add(apiBaseDto);
         }
         PageInfoDTO<ApiBaseDTO> pageInfo = new PageInfoDTO<>(page.getTotal(), query.getCurPagerNo(), query.getPageSize(), list);
-
-        if (page.getTotal() > 0) {
-            //设置所属服务id
-            List<Long> apiIds = page.getRecords().stream().map(ApiBasePO::getId).collect(Collectors.toList());
-            List<ServiceApiRelationPO> serviceApiRelationList = serviceApiRelationRepository.listByApiId(apiIds);
-            if (CollectionUtils.isNotEmpty(serviceApiRelationList)) {
-                Map<Long, Long> apiServerId = serviceApiRelationList.stream().collect(Collectors.toMap(ServiceApiRelationPO::getApiId, ServiceApiRelationPO::getServerId));
-                pageInfo.getList().forEach(api -> api.setServiceId(apiServerId.get(api.getId())));
-            }
-        }
         return new PageResultDTO<>(pageInfo);
     }
 
@@ -360,9 +303,7 @@ public class ApiBaseDomainService {
      * @return List
      **/
     public List<ApiBaseDTO> listQuery(ApiBasePageQuery query) {
-        if (ObjectUtils.isNotEmpty(query.getRelServiceId())) {
-            query.setIds(serviceApiRelationRepository.listApiIdByServerId(query.getRelServiceId()));
-        }
+
         // 接口列表
         List<ApiBasePO> list = apiBaseRepository.list(new LambdaQueryWrapper<ApiBasePO>()
                 .like(CharSequenceUtil.isNotBlank(query.getApiName()), ApiBasePO::getApiName, query.getApiName())
@@ -373,11 +314,7 @@ public class ApiBaseDomainService {
         List<ApiBaseDTO> result = BeanConverter.toList(list, ApiBaseDTO.class);
         // 授权关系
         List<Long> apiIds = result.stream().map(ApiBaseDTO::getId).collect(Collectors.toList());
-        List<ServiceApiRelationPO> serviceApiRelationList = serviceApiRelationRepository.listByApiId(apiIds);
-        if (CollectionUtils.isNotEmpty(serviceApiRelationList)) {
-            Map<Long, Long> apiServerId = serviceApiRelationList.stream().collect(Collectors.toMap(ServiceApiRelationPO::getApiId, ServiceApiRelationPO::getServerId));
-            result.forEach(api -> api.setServiceId(apiServerId.get(api.getId())));
-        }
+
         return result;
     }
 
@@ -385,11 +322,6 @@ public class ApiBaseDomainService {
     public ApiBaseDTO info(Long id) {
         ApiBaseDTO apiBaseDto = BeanConverter.toBean(apiBaseRepository.getById(id), ApiBaseDTO.class);
 
-        // 补齐接口文档
-        ApiDocPO apiDocPo = apiDocRepository.getOne(new LambdaQueryWrapper<ApiDocPO>().eq(ApiDocPO::getInterfaceId, apiBaseDto.getId()));
-        if (apiDocPo != null) {
-            apiBaseDto.setDoc(BeanUtil.copyProperties(apiDocPo, ApiDocDTO.class));
-        }
         //填充参数及返回值
         List<ApiParamDTO> apiParamList = apiParamDomainService.listByApiId(id);
         if (CollectionUtils.isNotEmpty(apiParamList)) {

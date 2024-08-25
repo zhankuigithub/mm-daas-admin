@@ -15,14 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * <p>
- * 报表发布日志
- * </p>
- *
- * @author
- * @date 2023-08-29
- */
+
 @Api(tags = "报表发布日志相关接口")
 @RestController
 @RequiredArgsConstructor
