@@ -7,14 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * <p>
- * druid解析工具
- * </p>
- *
- * @author
- * @date 2023-06-05
- */
+
 public class CommonUtils {
 
     /**

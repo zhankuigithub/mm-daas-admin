@@ -9,14 +9,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * <p>
- * 平台服务表
- * </p>
- *
- * @author
- * @since 2023-04-07
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "platformService", description = "平台服务")

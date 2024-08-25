@@ -7,12 +7,7 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-/**
- * 接口参数对象 api_param
- *
- * @author
- * @date 2023-04-12
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "ApiParam对象", description = "接口参数对象")

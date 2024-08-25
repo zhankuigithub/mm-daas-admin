@@ -7,14 +7,6 @@ import lombok.Data;
 import java.util.Date;
 
 
-/**
- * <p>
- * 接口发布日志
- * </p>
- *
- * @author
- * @date 2023-08-29
- */
 @Data
 public class ApiBaseLogDTO {
     private static final long serialVersionUID = 1L;

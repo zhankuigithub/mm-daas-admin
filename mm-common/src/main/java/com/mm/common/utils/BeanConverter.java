@@ -6,11 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * @author:
- * Date: 2023/4/6 11:36
- * Desc:
- */
+
 public class BeanConverter {
     public static <T> T toBean(Object source, Class<T> tClass) {
         return source != null ? BeanUtil.copyProperties(source, tClass) : null;

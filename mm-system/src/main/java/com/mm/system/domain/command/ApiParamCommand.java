@@ -5,12 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-/**
- * 接口参数对象 api_param
- *
- * @author
- * @date 2023-04-12
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "ApiParam对象", description = "接口参数对象")

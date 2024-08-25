@@ -5,12 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-/**
- * 服务授权对象 service_authorization
- *
- * @author
- * @date 2023-04-03
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "serviceAuthorization对象", description = "服务授权对象")

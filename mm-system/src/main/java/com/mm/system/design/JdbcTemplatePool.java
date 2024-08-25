@@ -10,14 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * <p>
- * jdbc模板管理工具
- * </p>
- *
- * @author
- * @date 2023-03-25
- */
+
 public final class JdbcTemplatePool {
 
     /**  静态成员变量 */

@@ -9,11 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * @author:
- * Date: 2023/4/6 11:44
- * Desc:
- */
+
 @Slf4j
 public class ResponseHelper {
     private static final ObjectMapper objectMapper = new ObjectMapper();

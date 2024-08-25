@@ -16,14 +16,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * <p>
- * 动态报表操作日志 服务实现类
- * </p>
- *
- * @author
- * @date 2023-08-29
- */
 @Component
 @DS("slave")
 public class ApiBaseLogDomainService {

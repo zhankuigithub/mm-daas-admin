@@ -8,14 +8,6 @@ import lombok.experimental.Accessors;
 
 import java.util.List;
 
-/**
- * <p>
- * ApiQuery
- * </p>
- *
- * @author
- * @date 2023-03-25
- */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)

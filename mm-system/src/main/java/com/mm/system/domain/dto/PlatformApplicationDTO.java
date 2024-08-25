@@ -7,12 +7,7 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-/**
- * 平台应用对象 platform_application
- *
- * @author
- * @date 2023-04-03
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "platformApplication", description = "平台应用")

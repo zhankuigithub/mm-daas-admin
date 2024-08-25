@@ -1,13 +1,6 @@
 package com.mm.system.domain.enums;
 
-/**
- * <p>
- * 正则枚举
- * </p>
- *
- * @author
- * @date 2023-04-11
- */
+
 public class PatternEnum {
 
     /** 手机号正则 */

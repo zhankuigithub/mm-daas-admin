@@ -9,14 +9,7 @@ import com.mm.system.mapper.DatasourceInfoMapper;
 import com.mm.system.service.IDataSourceRepository;
 import org.springframework.stereotype.Service;
 
-/**
- * <p>
- * 数据源
- * </p>
- *
- * @author
- * @date 2023-03-25
- */
+
 @Service
 public class DataSourceRepositoryImpl extends ServiceImpl<DatasourceInfoMapper, DatasourceInfoPO> implements IDataSourceRepository {
     @Override

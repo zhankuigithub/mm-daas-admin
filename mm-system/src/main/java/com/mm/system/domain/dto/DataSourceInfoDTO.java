@@ -6,11 +6,7 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-/**
- * @author:
- * Date: 2023/3/28 15:37
- * Desc: 数据源信息
- */
+
 @Data
 @Accessors(chain = true)
 public class DataSourceInfoDTO {

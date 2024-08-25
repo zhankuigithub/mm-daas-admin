@@ -12,12 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-/**
- * 平台应用对象 platform_application
- *
- * @author
- * @date 2023-04-03
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "platformApplication", description = "平台应用")

@@ -7,12 +7,7 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-/**
- * api类目对象 api_category
- *
- * @author
- * @date 2023-04-03
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "ApiCategory对象", description = "api类目")

@@ -12,12 +12,6 @@ import com.mm.system.mapper.ApiBaseMapper;
 import com.mm.system.service.IApiBaseRepository;
 import org.springframework.stereotype.Service;
 
-/**
- * 接口信息Service业务层处理
- *
- * @author
- * @date 2023-03-30
- */
 @Service
 public class ApiBaseRepositoryImpl extends ServiceImpl<ApiBaseMapper, ApiBasePO> implements IApiBaseRepository {
     @Override

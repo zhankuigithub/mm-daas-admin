@@ -9,14 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * <p>
- * 数据源管理工具
- * </p>
- *
- * @author
- * @date 2023-03-25
- */
+
 public final class JdbcDataSourcePool {
 
     private static final int RETRY_CNT = 3;

@@ -5,14 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 报表发布日志
- * </p>
- *
- * @author
- * @date 2023-08-30
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "ApiLogPageQuery对象", description = "报表发布日志")

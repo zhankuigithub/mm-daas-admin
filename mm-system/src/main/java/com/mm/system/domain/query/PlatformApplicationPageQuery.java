@@ -5,12 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-/**
- * 平台应用对象 platform_application
- *
- * @author
- * @date 2023-04-03
- */
+
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "PlatformApplicationPageQuery", description = "平台应用分页查询")

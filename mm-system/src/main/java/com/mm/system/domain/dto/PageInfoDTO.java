@@ -3,11 +3,7 @@ package com.mm.system.domain.dto;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * @author:
- * Date: 2023/4/6 11:33
- * Desc:
- */
+
 public class PageInfoDTO<T> extends BaseDTO implements Serializable {
     private static final long serialVersionUID = 8572943675678665226L;
     public static final int EXPORT_LIMIT_SIZE = 20000;

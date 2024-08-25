@@ -1,13 +1,5 @@
 package com.mm.system.domain.enums;
 
-/**
- * <p>
- * 结果集
- * </p>
- *
- * @author
- * @date 2023-04-27
- */
 public enum ApiLogResultEnum {
 
     SUCCESS(200, "成功"),

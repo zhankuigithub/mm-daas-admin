@@ -8,14 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-/**
- * <p>
- * 数据源
- * </p>
- *
- * @author
- * @date 2023-03-5
- */
+
 @Data
 @ApiModel(value = "DataSourceInsertCommand对象")
 public class DataSourceCommand {

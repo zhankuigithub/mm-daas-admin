@@ -5,14 +5,7 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * <p>
- * 文档dto
- * </p>
- *
- * @author
- * @date 2023-04-13
- */
+
 @Data
 public class ApiDocDTO {
 

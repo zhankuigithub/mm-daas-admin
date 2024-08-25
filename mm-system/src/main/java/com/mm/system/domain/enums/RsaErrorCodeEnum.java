@@ -2,14 +2,7 @@ package com.mm.system.domain.enums;
 
 import lombok.Getter;
 
-/**
- * <p>
- * rsa错误代码
- * </p>
- *
- * @author
- * @date 2023-03-29
- */
+
 @Getter
 public enum RsaErrorCodeEnum {
 

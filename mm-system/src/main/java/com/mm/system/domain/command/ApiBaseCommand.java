@@ -9,11 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
-/**
- * 接口信息对象 api_base
- *
- * @author @date 2023-03-30
- */
+
 @Data
 @ApiModel(value = "ApiBase对象", description = "api信息对象")
 public class ApiBaseCommand {

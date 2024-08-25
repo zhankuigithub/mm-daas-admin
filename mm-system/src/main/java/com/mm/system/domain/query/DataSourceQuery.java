@@ -8,14 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-/**
- * <p>
- * 数据源表Query
- * </p>
- *
- * @author
- * @date 2023-03-25
- */
+
 @Data
 @ApiModel(value = "DataSourceQuery对象", description = "数据源表Query")
 public class DataSourceQuery extends PageQuery {

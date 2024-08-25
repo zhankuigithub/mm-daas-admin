@@ -17,11 +17,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author:
- * Date: 2023/3/28 14:48
- * Desc: 各个数据库jdbc抽象行为类
- */
+
 @Slf4j
 public class JdbcConnectionUtils {
 

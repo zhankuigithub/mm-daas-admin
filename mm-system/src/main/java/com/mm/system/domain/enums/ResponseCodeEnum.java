@@ -1,10 +1,6 @@
 package com.mm.system.domain.enums;
 
-/**
- * @author:
- * Date: 2023/4/6 11:53
- * Desc:
- */
+
 public enum ResponseCodeEnum {
     SUCCESS(200, "请求成功"),
     ILLEGAL_ARGS(202, "参数错误"),

@@ -7,14 +7,7 @@ import com.mm.system.domain.DatasourceInfoPO;
 import com.mm.system.domain.query.DataSourceQuery;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * <p>
- * 数据mapper
- * </p>
- *
- * @author
- * @date 2023-03-25
- */
+
 public interface DatasourceInfoMapper extends BaseMapper<DatasourceInfoPO> {
 
     /**

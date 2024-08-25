@@ -13,14 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-/**
- * <p>
- * 执行枚举
- * </p>
- *
- * @author
- * @date 2023-03-31
- */
+
 public enum ResultTypeExecEnum {
 
     /** 返回List类型 */

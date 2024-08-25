@@ -10,12 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-/**
- * 服务授权对象 service_authorization
- *
- * @author
- * @date 2023-04-03
- */
+
 @Data
 @ApiModel(value = "serviceAuthorization对象", description = "服务授权对象")
 public class ServiceAuthorizationCommand {

@@ -1,10 +1,6 @@
 package com.mm.common.core.assembler;
 
-/**
- * @author:
- * Date: 2023/4/6 11:51
- * Desc:
- */
+
 public class ResponseMessage<T> {
     private Integer code;
     private String message;

@@ -7,14 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-/**
- * <p>
- * 接口文档
- * </p>
- *
- * @author
- * @date 2023-04-07
- */
+
 @Data
 public class ApiDocCommand {
 

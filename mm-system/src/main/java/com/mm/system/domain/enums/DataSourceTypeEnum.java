@@ -7,11 +7,7 @@ import com.mm.system.domain.dto.DataSourceTypeDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author:
- * Date: 2023/3/29 17:38
- * Desc:
- */
+
 public enum DataSourceTypeEnum {
        MYSQL("mysql", "com.mysql.cj.jdbc.Driver", "mysql-connector-java-8.0.28.jar"),
        HIVE2("hive", "org.apache.hive.jdbc.HiveDriver", "hive-jdbc-2.3.7.jar"),

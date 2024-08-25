@@ -9,12 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
-/**
- * 接口信息对象 api_base
- *
- * @author
- * @date 2023-03-30
- */
+
 @Data
 @ApiModel(value = "ApiCategory对象", description = "api类目对象")
 public class ApiCategoryCommand {
