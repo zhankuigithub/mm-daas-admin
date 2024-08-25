@@ -6,12 +6,7 @@ import com.mm.system.domain.ApiBasePO;
 import com.mm.system.domain.query.ApiBasePageQuery;
 
 
-/**
- * 接口信息Service接口
- *
- * @author
- * @date 2023-03-30
- */
+
 public interface IApiBaseRepository extends IService<ApiBasePO> {
     /**
      * 判断当前api名称是否存在

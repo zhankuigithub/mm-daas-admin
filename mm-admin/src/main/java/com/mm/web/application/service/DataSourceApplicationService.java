@@ -19,14 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * <p>
- * 数据源
- * </p>
- *
- * @author
- * @date 2023-03-25
- */
+
 @Service
 @RequiredArgsConstructor
 @DS("slave")

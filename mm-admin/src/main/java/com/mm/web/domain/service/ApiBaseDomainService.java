@@ -34,11 +34,7 @@ import java.sql.Statement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * @author:
- * Date: 2023/3/30 16:28
- * Desc:
- */
+
 @Component
 @RequiredArgsConstructor
 public class ApiBaseDomainService {
@@ -312,9 +308,6 @@ public class ApiBaseDomainService {
                 .in(CollectionUtils.isNotEmpty(query.getIds()), ApiBasePO::getId, query.getIds())
         );
         List<ApiBaseDTO> result = BeanConverter.toList(list, ApiBaseDTO.class);
-        // 授权关系
-        List<Long> apiIds = result.stream().map(ApiBaseDTO::getId).collect(Collectors.toList());
-
         return result;
     }
 

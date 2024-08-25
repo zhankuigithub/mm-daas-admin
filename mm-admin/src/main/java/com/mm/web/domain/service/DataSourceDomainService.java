@@ -7,28 +7,18 @@ import com.mm.system.domain.DatasourceInfoPO;
 import com.mm.system.domain.command.DataSourceCommand;
 import com.mm.system.domain.dto.*;
 import com.mm.system.domain.query.DataSourceQuery;
-import com.mm.system.service.IApiBaseRepository;
 import com.mm.system.service.IDataSourceRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * <p>
- * 数据源
- * </p>
- *
- * @author
- * @date 2023-03-25
- */
+
 @Service
 public class DataSourceDomainService {
 
     @Resource
     private IDataSourceRepository dataSourceRepository;
-    @Resource
-    private IApiBaseRepository apiBaseRepository;
 
 
     /**

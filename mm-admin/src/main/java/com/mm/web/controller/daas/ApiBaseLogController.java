@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/inner/api/log")
-public class InnerApiBaseLogController {
+public class ApiBaseLogController {
 
     @Resource
     ApiBaseLogDomainService apiBaseLogDomainService;

@@ -12,14 +12,7 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 
-/**
- * <p>
- * 接口发布日志
- * </p>
- *
- * @author
- * @date 2023-08-29
- */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)

@@ -14,12 +14,6 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 
-/**
- * 接口信息对象 api_base
- *
- * @author
- * @date 2023-03-30
- */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)

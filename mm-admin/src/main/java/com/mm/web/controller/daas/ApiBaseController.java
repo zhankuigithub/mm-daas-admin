@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/inner/api")
-public class InnerApiBaseController {
+public class ApiBaseController {
 
     private final ApiBaseApplicationService apiBaseApplicationService;
 

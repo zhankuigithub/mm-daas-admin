@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/inner/datasource")
-public class InnerDatasourceInfoController {
+public class DatasourceInfoController {
 
 
     private final DataSourceApplicationService dataSourceApplicationService;
