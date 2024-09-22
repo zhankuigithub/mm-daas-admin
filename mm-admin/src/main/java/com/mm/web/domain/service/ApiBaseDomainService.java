@@ -345,5 +345,12 @@ public class ApiBaseDomainService {
     public Object executeByPath(String apiPath, Map<String, Object> params) {
         return this.execute(queryApiByPath(apiPath), params);
     }
+
+
+    public ApiBaseDTO info(String apiPath) {
+        ApiBasePO apiBasePo = queryApiByPath(apiPath);
+        return this.info(apiBasePo.getId());
+    }
+
 }
 

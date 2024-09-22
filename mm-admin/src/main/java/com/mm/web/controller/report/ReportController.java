@@ -19,7 +19,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("report/query")
+@RequestMapping("report")
 public class ReportController {
 
     @Resource
@@ -32,9 +32,9 @@ public class ReportController {
      * @return api接口相应
      **/
     @CrossOrigin
-    @RequestMapping("/**")
+    @RequestMapping("query/**")
     @ApiModelProperty("查询报表")
-    public ResponseMessage<Object> outExecutor(
+    public ResponseMessage<Object> query(
             @RequestBody(required = false) Map<String, Object> params,
             HttpServletRequest request) throws Exception {
         String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
@@ -45,5 +45,21 @@ public class ReportController {
             throw new ServiceException("apiPath 不能为空!");
         }
         return ResponseHelper.success(apiBaseApplicationService.executeByPath(matchedPath, params));
+    }
+
+    @CrossOrigin
+    @RequestMapping("excel/**")
+    @ApiModelProperty("导出报表")
+    public ResponseMessage<Object> excel(
+            @RequestBody(required = false) Map<String, Object> params,
+            HttpServletRequest request) {
+        String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        String bestMatchPattern = (String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
+        AntPathMatcher matcher = new AntPathMatcher();
+        String matchedPath = matcher.extractPathWithinPattern(bestMatchPattern, path);
+        if (StringUtils.isBlank(matchedPath)) {
+            throw new ServiceException("apiPath 不能为空!");
+        }
+        return ResponseHelper.success(apiBaseApplicationService.exportExcel(matchedPath, params));
     }
 }

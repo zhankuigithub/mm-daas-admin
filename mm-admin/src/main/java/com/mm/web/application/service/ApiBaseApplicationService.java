@@ -2,24 +2,34 @@ package com.mm.web.application.service;
 
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mm.common.utils.ExcelUtil;
 import com.mm.system.domain.command.ApiBaseCommand;
 import com.mm.system.domain.dto.ApiBaseDTO;
+import com.mm.system.domain.dto.ApiParamDTO;
 import com.mm.system.domain.dto.PageResultDTO;
 import com.mm.system.domain.query.ApiBasePageQuery;
 import com.mm.system.domain.query.PlatformServicePageQuery;
 import com.mm.web.domain.service.ApiBaseDomainService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 @DS("slave")
 public class ApiBaseApplicationService {
 
-    /** 接口 */
+    private static final ObjectMapper sObjectMapper = new ObjectMapper();
+
+    /**
+     * 接口
+     */
     private final ApiBaseDomainService apiBaseDomainService;
 
 
@@ -91,6 +101,30 @@ public class ApiBaseApplicationService {
         return apiBaseDomainService.executeByPath(apiPath, Optional.ofNullable(params).orElse(new HashMap<>()));
     }
 
+    public Object exportExcel(String apiPath, Map<String, Object> params) {
+        Map<String, Object> map = Optional.ofNullable(params).orElse(new HashMap<>());
+        map.remove("curPagerNo");
+        map.remove("pageSize");
+        Object o = apiBaseDomainService.executeByPath(apiPath, map);
+        if (o instanceof List) {
+            List list = (ArrayList) o;
+            try {
+                ApiBaseDTO info = apiBaseDomainService.info(apiPath);
+                List<ApiParamDTO> apiParams = info.getApiReturns();
+                List<ApiParamDTO> filteredList = apiParams.stream()
+                        .filter(param -> param.getParamType() == 2)
+                        .collect(Collectors.toList());
+                List<String> remarks = filteredList.stream().map(ApiParamDTO::getRemark).collect(Collectors.toList());
+                List<String> keys = filteredList.stream().map(ApiParamDTO::getFieldName).collect(Collectors.toList());
+                ExcelUtil.downloadExcel(sObjectMapper.readTree(sObjectMapper.writeValueAsString(list)),
+                        remarks,
+                        keys, info.getApiName());
+            } catch (IOException e) {
+                log.error("export error:{}", e.getMessage());
+            }
+        }
+        return null;
+    }
 
 }
 

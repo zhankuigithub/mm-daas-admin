@@ -279,79 +279,79 @@
 <!--            </el-table-column>-->
 <!--          </el-table>-->
 <!--        </el-form-item>-->
-<!--        <el-form-item label="响应字段">-->
-<!--          <el-table :data="form.apiReturns" ref="tb" size="mini" border>-->
-<!--            <el-table-column align="left" width="75">-->
-<!--              <template slot="header" slot-scope="scope">-->
-<!--                <el-button-->
-<!--                  @click="clickAddProblems(scope.row, 2)"-->
-<!--                  icon="iconfont icon-add"-->
-<!--                  type="text"-->
-<!--                  size="mini"-->
-<!--                  >添加-->
-<!--                </el-button>-->
-<!--              </template>-->
-<!--              <template slot-scope="scope">-->
-<!--                <el-button-->
-<!--                  @click="clickRemoveProblems(scope.row, 2)"-->
-<!--                  icon="iconfont icon-guanbi"-->
-<!--                  type="text"-->
-<!--                  size="mini"-->
-<!--                >-->
-<!--                  移除-->
-<!--                </el-button>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--            <el-table-column-->
-<!--              label="是否必填"-->
-<!--              width="150"-->
-<!--              align="center"-->
-<!--              prop="ts"-->
-<!--            >-->
-<!--              <template slot-scope="scope">-->
-<!--                <el-radio-group v-model="scope.row.required">-->
-<!--                  <el-radio :label="1">是</el-radio>-->
-<!--                  <el-radio :label="2">否</el-radio>-->
-<!--                </el-radio-group>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--            <el-table-column label="字段名" align="center" prop="ts">-->
-<!--              <template slot-scope="scope">-->
-<!--                <el-input-->
-<!--                  v-model.trim="scope.row.fieldName"-->
-<!--                  placeholder="字段名称"-->
-<!--                  @blur="underscoreToCamel(scope.row)"-->
-<!--                />-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--            <el-table-column label="字段类型" align="center" prop="ts">-->
-<!--              <template slot-scope="scope">-->
-<!--                <el-select-->
-<!--                  clearable-->
-<!--                  v-model="scope.row.fieldType"-->
-<!--                  class="form-input"-->
-<!--                  placeholder="请选择字段类型"-->
-<!--                >-->
-<!--                  <el-option-->
-<!--                    v-for="(item, index) of fieldTypes"-->
-<!--                    :key="item.value"-->
-<!--                    :label="item.value"-->
-<!--                    :value="item.value"-->
-<!--                    >{{ item.value }}-->
-<!--                  </el-option>-->
-<!--                </el-select>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--            <el-table-column label="字段说明" align="center" prop="ts">-->
-<!--              <template slot-scope="scope">-->
-<!--                <el-input-->
-<!--                  v-model.trim="scope.row.remark"-->
-<!--                  placeholder="字段说明"-->
-<!--                />-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--          </el-table>-->
-<!--        </el-form-item>-->
+        <el-form-item label="响应字段">
+          <el-table :data="form.apiReturns" ref="tb" size="mini" border>
+            <el-table-column align="left" width="75">
+              <template slot="header" slot-scope="scope">
+                <el-button
+                  @click="clickAddProblems(scope.row, 2)"
+                  icon="iconfont icon-add"
+                  type="text"
+                  size="mini"
+                  >添加
+                </el-button>
+              </template>
+              <template slot-scope="scope">
+                <el-button
+                  @click="clickRemoveProblems(scope.row, 2)"
+                  icon="iconfont icon-guanbi"
+                  type="text"
+                  size="mini"
+                >
+                  移除
+                </el-button>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="是否必填"
+              width="150"
+              align="center"
+              prop="ts"
+            >
+              <template slot-scope="scope">
+                <el-radio-group v-model="scope.row.required">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="2">否</el-radio>
+                </el-radio-group>
+              </template>
+            </el-table-column>
+            <el-table-column label="字段名" align="center" prop="ts">
+              <template slot-scope="scope">
+                <el-input
+                  v-model.trim="scope.row.fieldName"
+                  placeholder="字段名称"
+                  @blur="underscoreToCamel(scope.row)"
+                />
+              </template>
+            </el-table-column>
+            <el-table-column label="字段类型" align="center" prop="ts">
+              <template slot-scope="scope">
+                <el-select
+                  clearable
+                  v-model="scope.row.fieldType"
+                  class="form-input"
+                  placeholder="请选择字段类型"
+                >
+                  <el-option
+                    v-for="(item, index) of fieldTypes"
+                    :key="item.value"
+                    :label="item.value"
+                    :value="item.value"
+                    >{{ item.value }}
+                  </el-option>
+                </el-select>
+              </template>
+            </el-table-column>
+            <el-table-column label="字段说明" align="center" prop="ts">
+              <template slot-scope="scope">
+                <el-input
+                  v-model.trim="scope.row.remark"
+                  placeholder="字段说明"
+                />
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-form-item>
 <!--      <el-form-item label="业务类型" prop="categoryId">-->
 <!--        <el-select-->
 <!--          clearable-->
@@ -582,6 +582,44 @@ export default {
             });
         }
       });
+    },
+    clickAddProblems(rows, type) {
+      let temp = {
+        key: Math.random(),
+        apiId: null,
+        fieldName: null,
+        fieldType: "String",
+        paramType: type,
+        required: 1,
+        remark: null,
+      };
+      let apiParamsOrReturns =
+        type === 1 ? this.form.apiParams : this.form.apiReturns;
+      if (
+        apiParamsOrReturns.length === 0 ||
+        (apiParamsOrReturns.slice(-1)[0].fieldName &&
+          apiParamsOrReturns.slice(-1)[0].fieldType)
+      ) {
+        apiParamsOrReturns.push(temp);
+      } else {
+        this.$modal.msgError("请先填写完成上一个参数");
+      }
+    },
+    clickRemoveProblems(row, type) {
+      let apiParamsOrReturns =
+        type === 1 ? this.form.apiParams : this.form.apiReturns;
+      let index = apiParamsOrReturns.findIndex((x) => x.key === row.key);
+      if (index !== -1) {
+        apiParamsOrReturns.splice(index, 1);
+      }
+    },
+    underscoreToCamel(row) {
+      const str = row.fieldName;
+      if (this.form.openHump === 1) {
+        row.fieldName = str.replace(/_([a-z])/g, function (match, letter) {
+          return letter.toUpperCase();
+        });
+      }
     },
   },
   computed: {
