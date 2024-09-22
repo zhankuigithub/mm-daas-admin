@@ -8,12 +8,16 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mm.common.exception.ServiceException;
 import com.mm.common.utils.BeanConverter;
+import com.mm.common.utils.CommonUtils;
 import com.mm.system.design.JdbcTemplatePool;
 import com.mm.system.domain.ApiBaseLogPO;
 import com.mm.system.domain.ApiBasePO;
 import com.mm.system.domain.command.ApiBaseCommand;
 import com.mm.system.domain.command.ApiParamCommand;
-import com.mm.system.domain.dto.*;
+import com.mm.system.domain.dto.ApiBaseDTO;
+import com.mm.system.domain.dto.ApiParamDTO;
+import com.mm.system.domain.dto.PageInfoDTO;
+import com.mm.system.domain.dto.PageResultDTO;
 import com.mm.system.domain.enums.ExecEnum;
 import com.mm.system.domain.enums.ResultTypeExecEnum;
 import com.mm.system.domain.query.ApiBasePageQuery;
@@ -39,19 +43,29 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ApiBaseDomainService {
 
-    /** 页码 */
+    /**
+     * 页码
+     */
     private static final String CUR_PAGE_NO = "curPagerNo";
 
-    /** 每页大小 */
+    /**
+     * 每页大小
+     */
     private static final String PAGE_SIZE = "pageSize";
 
-    /** 接口 */
+    /**
+     * 接口
+     */
     private final IApiBaseRepository apiBaseRepository;
 
-    /** 接口参数 */
+    /**
+     * 接口参数
+     */
     private final ApiParamDomainService apiParamDomainService;
 
-    /** 动态报表操作日志 */
+    /**
+     * 动态报表操作日志
+     */
     private final IApiBaseLogRepository apiBaseLogRepository;
 
 
@@ -175,6 +189,9 @@ public class ApiBaseDomainService {
 
         SqlMeta processPage = process(sqlPage.toString(), params);
         List<Map<String, Object>> maps = jdbcTemplate.queryForList(processPage.getSql(), processPage.getParameter().toArray());
+        if (apiBasePersistent.ifOpenHump()) {
+            maps = CommonUtils.transformationHump(maps);
+        }
         PageInfoDTO<Object> pageInfo = new PageInfoDTO<>(count, pageNum, pageSize, maps);
         return new PageResultDTO<>(pageInfo);
     }

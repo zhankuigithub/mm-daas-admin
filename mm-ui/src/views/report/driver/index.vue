@@ -27,15 +27,28 @@
 
 
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
-      <el-table-column label="司机姓名" align="center" prop=""/>
-      <el-table-column label="二级户名称" align="center" prop=""/>
-      <el-table-column label="出金时间" align="center" prop=""/>
-      <el-table-column label="出金金额" align="center" prop=""/>
-      <el-table-column label="出金账户" align="center" prop=""/>
-      <el-table-column label="入金时间" align="center" prop=""/>
-      <el-table-column label="入金金额" align="center" prop=""/>
-      <el-table-column label="入金账户" align="center" prop=""/>
-      <el-table-column label="入金运单号" align="center" prop=""/>
+      <el-table-column type="index" label="序号" align="center" />
+      <el-table-column label="司机姓名" align="center" prop="carrierName"/>
+      <el-table-column label="二级户名称" align="center" prop="bankCard" width="230"/>
+      <el-table-column label="出金时间" align="center" prop="withdrawalTime"/>
+      <el-table-column label="出金金额" align="center" prop="withdrawalAmount">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.withdrawalAmount)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="出金账户" align="center" prop="withdrawalAccount"/>
+      <el-table-column label="入金时间" align="center" prop="depositTime"/>
+      <el-table-column label="入金金额" align="center" prop="depositAmount">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.depositAmount)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="入金账户" align="center" prop="depositAccount"/>
+      <el-table-column label="入金运单号" align="center" prop="depositNumber" width="230"/>
     </el-table>
     <pagination
       v-show="total > 0"
@@ -49,6 +62,7 @@
 </template>
 
 <script>
+  import { getThousandNum } from '@/utils'
   export default {
     name: "index",
     data() {
@@ -80,6 +94,7 @@
       this.getList();
     },
     methods: {
+      getThousandNum,
       getList() {
         this.loading = true;
         this.$api.report.reportInfo('driver/secondary/information', this.queryParams).then((response) => {

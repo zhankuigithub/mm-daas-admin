@@ -439,3 +439,18 @@ export function convertDateFormat(inputDate) {
   return `${year}/${month}/${day} ${hour}:${minute}`;
 }
 
+export function getThousandNum(num) {
+  if (typeof num === 'string' || num instanceof String) num = Number(num)
+  if ((!isNaN(num) && isFinite(num) && typeof num === 'number') || num instanceof Number) {
+    if (num === 0) return 0
+    return num.toString().replace(/\d+/, function (n) {
+      // 先提取整数部分
+      return n.replace(/(\d)(?=(\d{3})+$)/g, function ($1) {
+        // 对整数部分添加分隔符
+        return $1 + ','
+      })
+    })
+  } else {
+    return ''
+  }
+}

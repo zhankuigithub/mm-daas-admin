@@ -77,5 +77,9 @@ const globalStaticVariable = {
     { value: "union", label: "union" },
     { value: "chain", label: "chain" },
   ],
+  orderStatusList: [
+    { value: 1, label: "取消" },
+    { value: 0, label: "关闭" },
+  ],
 };
 export { globalStaticVariable };

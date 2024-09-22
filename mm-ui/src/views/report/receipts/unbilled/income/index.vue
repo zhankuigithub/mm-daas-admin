@@ -27,17 +27,46 @@
 
 
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
-      <el-table-column label="序号" align="center" prop=""/>
-      <el-table-column label="托运人名称" align="center" prop=""/>
-      <el-table-column label="业务机构名称" align="center" prop=""/>
+      <el-table-column type="index" label="序号" align="center" />
+      <el-table-column label="托运人名称" align="center" prop="enterpriseName"/>
+      <el-table-column label="业务机构名称" align="center" prop="officeName"/>
       <el-table-column label="货主运费总额" align="center">
-        <el-table-column label="含税收入" align="center" prop=""/>
-        <el-table-column label="未税收入" align="center" prop=""/>
-        <el-table-column label="税" align="center" prop=""/>
+        <el-table-column label="含税收入" align="center" prop="taxIncludedIncome">
+          <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.taxIncludedIncome)
+          }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="未税收入" align="center" prop="taxExcludedIncome">
+          <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.taxExcludedIncome)
+          }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="税" align="center" prop="tax">
+          <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.tax)
+          }}</span>
+          </template>
+        </el-table-column>
       </el-table-column>
-      <el-table-column label="合同负债" align="center"/>
-      <el-table-column label="应收运费差额" align="center"/>
-      <el-table-column label="备注" align="center"/>
+      <el-table-column label="合同负债" align="center" prop="contractLiabilities">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.contractLiabilities)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="应收运费差额" align="center">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.receivableFreightDiff)
+          }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"
@@ -51,6 +80,8 @@
 </template>
 
 <script>
+  import { getThousandNum } from '@/utils'
+
   export default {
     name: "index",
     data() {
@@ -82,6 +113,7 @@
       this.getList();
     },
     methods: {
+      getThousandNum,
       getList() {
         this.loading = true;
         this.$api.report.reportInfo('receipts/unbilled/income', this.queryParams).then((response) => {

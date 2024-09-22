@@ -27,13 +27,19 @@
 
 
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
-      <el-table-column label="序号" align="center" prop=""/>
-      <el-table-column label="托运人名称" align="center" prop=""/>
-      <el-table-column label="部门" align="center" prop=""/>
-      <el-table-column label="司机名称" align="center" prop=""/>
-      <el-table-column label="身份证后六位" align="center" prop=""/>
-      <el-table-column label="时间(年度月份）" align="center" prop=""/>
-      <el-table-column label="系统成立前运费金额" align="center" prop=""/>
+      <el-table-column type="index" label="序号" align="center" />
+      <el-table-column label="托运人名称" align="center" prop="enterpriseName"/>
+      <el-table-column label="部门" align="center" prop="officeName"/>
+      <el-table-column label="司机名称" align="center" prop="name"/>
+      <el-table-column label="身份证后六位" align="center" prop="idcardNo"/>
+      <el-table-column label="时间(年度月份）" align="center" prop="settleTime"/>
+      <el-table-column label="系统成立前运费金额" align="center" prop="carrier4payed4amt">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.carrier4payed4amt)
+          }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"
@@ -47,6 +53,7 @@
 </template>
 
 <script>
+  import { getThousandNum } from '@/utils'
   export default {
     name: "index",
     data() {
@@ -78,6 +85,7 @@
       this.getList();
     },
     methods: {
+      getThousandNum,
       getList() {
         this.loading = true;
         this.$api.report.reportInfo('demand/cost/statement', this.queryParams).then((response) => {

@@ -27,20 +27,38 @@
 
 
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
-      <el-table-column label="序号" align="center" prop=""/>
-      <el-table-column label="业务归属部门" align="center" prop=""/>
-      <el-table-column label="服务商名称" align="center" prop=""/>
-      <el-table-column label="托运人名称" align="center" prop=""/>
-      <el-table-column label="开票批次号" align="center" prop=""/>
-      <el-table-column label="发票号码" align="center" prop=""/>
-      <el-table-column label="开票日期" align="center" prop=""/>
-      <el-table-column label="开票结算金额" align="center" prop=""/>
-      <el-table-column label="运单号码" align="center" prop=""/>
-      <el-table-column label="运单双签时间" align="center" prop=""/>
-      <el-table-column label="运单结算金额" align="center" prop=""/>
-      <el-table-column label="承运人姓名" align="center" prop=""/>
-      <el-table-column label="承运人身份证号" align="center" prop=""/>
-      <el-table-column label="支付司机金额" align="center" prop=""/>
+      <el-table-column type="index" label="序号" align="center" />
+      <el-table-column label="业务归属部门" align="center" prop="officeName"  width="100"/>
+      <el-table-column label="服务商名称" align="center" prop="serviceProvider"  width="100"/>
+      <el-table-column label="托运人名称" align="center" prop="enterpriseName" width="230"/>
+      <el-table-column label="开票批次号" align="center" prop="receiptBatchNo" width="230"/>
+      <el-table-column label="发票号码" align="center" prop="invoiceNo" width="230"/>
+      <el-table-column label="开票日期" align="center" prop="receiptConfirmDate" width="230"/>
+      <el-table-column label="开票结算金额" align="center" prop="sumShipper4ticket4amt"  width="100">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.sumShipper4ticket4amt)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="运单号码" align="center" prop="orderNo" width="230"/>
+      <el-table-column label="运单双签时间" align="center" prop="signTime" width="230"/>
+      <el-table-column label="运单结算金额" align="center" prop="shipper4payed4amt"  width="100">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.shipper4payed4amt)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="承运人姓名" align="center" prop="name"  width="100"/>
+      <el-table-column label="承运人身份证号" align="center" prop="idcardNo" width="230"/>
+      <el-table-column label="支付司机金额" align="center" prop="carrier4payed4amt"  width="100">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.carrier4payed4amt)
+          }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"
@@ -54,6 +72,8 @@
 </template>
 
 <script>
+  import { getThousandNum } from '@/utils'
+
   export default {
     name: "index",
     data() {
@@ -85,6 +105,7 @@
       this.getList();
     },
     methods: {
+      getThousandNum,
       getList() {
         this.loading = true;
         this.$api.report.reportInfo('invoice/state/statistics', this.queryParams).then((response) => {

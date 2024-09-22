@@ -27,11 +27,16 @@
 
 
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
-      <el-table-column label="序号" align="center" prop=""/>
-      <el-table-column label="托运人名称" align="center" prop=""/>
-      <el-table-column label="业务机构名称" align="center" prop=""/>
-      <el-table-column label="司机运费总额" align="center" prop=""/>
-      <el-table-column label="备注" align="center" prop=""/>
+      <el-table-column type="index" label="序号" align="center" />
+      <el-table-column label="托运人名称" align="center" prop="enterpriseName"/>
+      <el-table-column label="业务机构名称" align="center" prop="officeName"/>
+      <el-table-column label="司机运费总额" align="center" prop="carrierFreightAmount">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.carrierFreightAmount)
+          }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"
@@ -45,6 +50,8 @@
 </template>
 
 <script>
+  import { getThousandNum } from '@/utils'
+
   export default {
     name: "index",
     data() {
@@ -76,6 +83,7 @@
       this.getList();
     },
     methods: {
+      getThousandNum,
       getList() {
         this.loading = true;
         this.$api.report.reportInfo('receipts/unbilled/cost', this.queryParams).then((response) => {

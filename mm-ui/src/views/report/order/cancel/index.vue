@@ -27,18 +27,43 @@
 
 
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
-      <el-table-column label="序号" align="center" prop="id"/>
-      <el-table-column label="业务归属部门" align="center" prop="id"/>
-      <el-table-column label="托运人名称" align="center" prop="id"/>
-      <el-table-column label="运单号" align="center" prop="id"/>
-      <el-table-column label="运单双签时间" align="center" prop="id"/>
-      <el-table-column label="运单金额" align="center" prop="id"/>
-      <el-table-column label="承运人姓名" align="center" prop="id"/>
-      <el-table-column label="承运人身份证号" align="center" prop="id"/>
-      <el-table-column label="支付承运人金额" align="center" prop="id"/>
-      <el-table-column label="支付承运人时间" align="center" prop="id"/>
-      <el-table-column label="运单状态（取消/关闭）" align="center" prop="id"/>
-      <el-table-column label="运单退款金额" align="center" prop="id"/>
+      <el-table-column type="index" label="序号" align="center" />
+      <el-table-column label="业务归属部门" align="center" prop="internalDept"/>
+      <el-table-column label="托运人名称" align="center" prop="enterpriseName"/>
+      <el-table-column label="运单号" align="center" prop="orderNo"/>
+      <el-table-column label="运单双签时间" align="center" prop="signTime"/>
+      <el-table-column label="运单金额" align="center" prop="orderAmount">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.orderAmount)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="承运人姓名" align="center" prop="carrierName"/>
+      <el-table-column label="承运人身份证号" align="center" prop="carrierIdcard"/>
+      <el-table-column label="支付承运人金额" align="center">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.payCarrierAmount)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="支付承运人时间" align="center" prop="payCarrierTime"/>
+      <el-table-column label="运单状态（取消/关闭）" align="center" width="200">
+        <template slot-scope="scope">
+          <span>{{
+            getGlobalDicLabel("orderStatusList", scope.row.orderStatus)
+          }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="运单退款金额" align="center">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.orderRefundAmount)
+          }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"
@@ -52,6 +77,8 @@
 </template>
 
 <script>
+  import { getThousandNum } from '@/utils'
+
   export default {
     name: "index",
     data() {
@@ -73,16 +100,14 @@
         queryParams: {
           curPagerNo: 1,
           pageSize: 10,
-          appName: null,
-          appAccount: null,
         },
-        editRecord: {},
       };
     },
     created() {
       this.getList();
     },
     methods: {
+      getThousandNum,
       getList() {
         this.loading = true;
         this.$api.report.reportInfo('order/cancel/statistics', this.queryParams).then((response) => {
