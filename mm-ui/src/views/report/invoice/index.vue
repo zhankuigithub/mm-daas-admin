@@ -29,7 +29,7 @@
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
       <el-table-column type="index" label="序号" align="center" />
       <el-table-column label="业务归属部门" align="center" prop="officeName"  width="100"/>
-      <el-table-column label="服务商名称" align="center" prop="serviceProvider"  width="100"/>
+      <el-table-column label="服务商名称" align="center" prop="serviceProvider"  width="200"/>
       <el-table-column label="托运人名称" align="center" prop="enterpriseName" width="230"/>
       <el-table-column label="开票批次号" align="center" prop="receiptBatchNo" width="230"/>
       <el-table-column label="发票号码" align="center" prop="invoiceNo" width="230"/>
@@ -56,6 +56,29 @@
         <template slot-scope="scope">
           <span>{{
             getThousandNum(scope.row.carrier4payed4amt)
+          }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="运单双签时间月份" align="center" prop="signMonth" width="140"/>
+      <el-table-column label="开票金额双签月份汇总" align="center" prop="sumShipper4ticket4amtTotal" width="220">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.sumShipper4ticket4amtTotal)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="运单结算金额双签汇总" align="center" prop="shipper4payed4amtTotal" width="220">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.shipper4payed4amtTotal)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="支付司机金额双签月份汇总" align="center" prop="carrier4payed4amtTotal" width="220">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.carrier4payed4amtTotal)
           }}</span>
         </template>
       </el-table-column>

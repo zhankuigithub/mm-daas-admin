@@ -28,10 +28,10 @@
 
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
       <el-table-column type="index" label="序号" align="center" />
-      <el-table-column label="业务归属部门" align="center" prop="internalDept"/>
-      <el-table-column label="托运人名称" align="center" prop="enterpriseName"/>
-      <el-table-column label="运单号" align="center" prop="orderNo"/>
-      <el-table-column label="运单双签时间" align="center" prop="signTime"/>
+      <el-table-column label="业务归属部门" align="center" prop="internalDept"width="220"/>
+      <el-table-column label="托运人名称" align="center" prop="enterpriseName" width="220"/>
+      <el-table-column label="运单号" align="center" prop="orderNo" width="220"/>
+      <el-table-column label="运单双签时间" align="center" prop="signTime" width="180"/>
       <el-table-column label="运单金额" align="center" prop="orderAmount">
         <template slot-scope="scope">
           <span>{{
@@ -39,16 +39,16 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="承运人姓名" align="center" prop="carrierName"/>
-      <el-table-column label="承运人身份证号" align="center" prop="carrierIdcard"/>
-      <el-table-column label="支付承运人金额" align="center">
+      <el-table-column label="承运人姓名" align="center" prop="carrierName" width="120"/>
+      <el-table-column label="承运人身份证号" align="center" prop="carrierIdcard" width="180"/>
+      <el-table-column label="支付承运人金额" align="center" width="180">
         <template slot-scope="scope">
           <span>{{
             getThousandNum(scope.row.payCarrierAmount)
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="支付承运人时间" align="center" prop="payCarrierTime"/>
+      <el-table-column label="支付承运人时间" align="center" prop="payCarrierTime" width="220"/>
       <el-table-column label="运单状态（取消/关闭）" align="center" width="200">
         <template slot-scope="scope">
           <span>{{
@@ -57,7 +57,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="运单退款金额" align="center">
+      <el-table-column label="运单退款金额" align="center" width="120">
         <template slot-scope="scope">
           <span>{{
             getThousandNum(scope.row.orderRefundAmount)

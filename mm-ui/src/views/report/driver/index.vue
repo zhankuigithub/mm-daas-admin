@@ -29,8 +29,8 @@
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
       <el-table-column type="index" label="序号" align="center" />
       <el-table-column label="司机姓名" align="center" prop="carrierName"/>
-      <el-table-column label="二级户名称" align="center" prop="bankCard" width="230"/>
-      <el-table-column label="出金时间" align="center" prop="withdrawalTime"/>
+      <el-table-column label="二级户名称" align="center" prop="accountName" width="230"/>
+      <el-table-column label="出金时间" align="center" prop="withdrawalTime"  width="180"/>
       <el-table-column label="出金金额" align="center" prop="withdrawalAmount">
         <template slot-scope="scope">
           <span>{{
@@ -38,8 +38,15 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="出金账户" align="center" prop="withdrawalAccount"/>
-      <el-table-column label="入金时间" align="center" prop="depositTime"/>
+      <el-table-column label="出金账户" align="center" prop="withdrawalAccount" width="280"/>
+      <el-table-column label="出金金额汇总" align="center" prop="withdrawalAmountTotal"  width="180">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.withdrawalAmountTotal)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="入金时间" align="center" prop="depositTime" width="180"/>
       <el-table-column label="入金金额" align="center" prop="depositAmount">
         <template slot-scope="scope">
           <span>{{
@@ -47,8 +54,15 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="入金账户" align="center" prop="depositAccount"/>
+      <el-table-column label="入金账户" align="center" prop="depositAccount" width="280"/>
       <el-table-column label="入金运单号" align="center" prop="depositNumber" width="230"/>
+      <el-table-column label="入金金额汇总" align="center" prop="depositAmountTotal"  width="180">
+        <template slot-scope="scope">
+          <span>{{
+            getThousandNum(scope.row.depositAmountTotal)
+          }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"
