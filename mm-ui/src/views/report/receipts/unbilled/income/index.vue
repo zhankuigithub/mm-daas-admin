@@ -6,8 +6,24 @@
       size="mini"
       :inline="true"
       v-show="showSearch"
-      label-width="68px"
+      label-width="100px"
     >
+      <el-form-item prop="enterpriseName" label="托运人名称">
+        <el-input
+          v-model.trim="queryParams.enterpriseName"
+          placeholder="请输入托运人名称"
+          clearable
+          size="small"
+        />
+      </el-form-item>
+      <el-form-item prop="officeName" label="业务机构名称">
+        <el-input
+          v-model.trim="queryParams.officeName"
+          placeholder="请输入业务机构名称"
+          clearable
+          size="small"
+        />
+      </el-form-item>
 
       <el-form-item>
         <el-button
@@ -103,8 +119,6 @@
         queryParams: {
           curPagerNo: 1,
           pageSize: 10,
-          appName: null,
-          appAccount: null,
         },
         editRecord: {},
       };
@@ -129,7 +143,7 @@
       resetQuery() {
         this.dateRange = [];
         this.resetForm("queryForm");
-        this.queryParams.curPagerNo = 1;
+        this.handleQuery();
       },
     },
   };

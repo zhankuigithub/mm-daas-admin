@@ -8,6 +8,14 @@
       v-show="showSearch"
       label-width="68px"
     >
+      <el-form-item prop="orderNo" label="运单号">
+        <el-input
+          v-model.trim="queryParams.orderNo"
+          placeholder="请输入运单号"
+          clearable
+          size="small"
+        />
+      </el-form-item>
 
       <el-form-item>
         <el-button
@@ -123,7 +131,7 @@
       resetQuery() {
         this.dateRange = [];
         this.resetForm("queryForm");
-        this.queryParams.curPagerNo = 1;
+        this.handleQuery()
       },
     },
   };

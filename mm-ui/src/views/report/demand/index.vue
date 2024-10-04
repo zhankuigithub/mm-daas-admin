@@ -8,6 +8,25 @@
       v-show="showSearch"
       label-width="68px"
     >
+      <el-form-item prop="settleTime1" label="时间">
+        <el-date-picker
+          v-model="queryParams.settleTime1"
+          type="month"
+          format="yyyy-MM"
+          value-format="yyyy-MM"
+          placeholder="开始"
+        ></el-date-picker>
+      </el-form-item>
+
+      <el-form-item prop="settleTime2">
+        <el-date-picker
+          v-model="queryParams.settleTime2"
+          type="month"
+          format="yyyy-MM"
+          value-format="yyyy-MM"
+          placeholder="结束"
+        ></el-date-picker>
+      </el-form-item>
 
       <el-form-item>
         <el-button
@@ -75,8 +94,6 @@
         queryParams: {
           curPagerNo: 1,
           pageSize: 10,
-          appName: null,
-          appAccount: null,
         },
         editRecord: {},
       };
@@ -101,7 +118,7 @@
       resetQuery() {
         this.dateRange = [];
         this.resetForm("queryForm");
-        this.queryParams.curPagerNo = 1;
+        this.handleQuery()
       },
     },
   };

@@ -6,8 +6,24 @@
       size="mini"
       :inline="true"
       v-show="showSearch"
-      label-width="68px"
+      label-width="100px"
     >
+      <el-form-item prop="enterpriseName" label="托运人名称">
+        <el-input
+          v-model.trim="queryParams.enterpriseName"
+          placeholder="请输入托运人名称"
+          clearable
+          size="small"
+        />
+      </el-form-item>
+      <el-form-item prop="officeName" label="业务机构名称">
+        <el-input
+          v-model.trim="queryParams.officeName"
+          placeholder="请输入业务机构名称"
+          clearable
+          size="small"
+        />
+      </el-form-item>
 
       <el-form-item>
         <el-button
@@ -27,7 +43,7 @@
 
 
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
-      <el-table-column type="index" label="序号" align="center" />
+      <el-table-column type="index" label="序号" align="center"/>
       <el-table-column label="托运人名称" align="center" prop="enterpriseName"/>
       <el-table-column label="业务机构名称" align="center" prop="officeName"/>
       <el-table-column label="司机运费总额" align="center" prop="carrierFreightAmount">
@@ -50,7 +66,7 @@
 </template>
 
 <script>
-  import { getThousandNum } from '@/utils'
+  import {getThousandNum} from '@/utils'
 
   export default {
     name: "index",
@@ -73,8 +89,6 @@
         queryParams: {
           curPagerNo: 1,
           pageSize: 10,
-          appName: null,
-          appAccount: null,
         },
         editRecord: {},
       };
@@ -99,7 +113,7 @@
       resetQuery() {
         this.dateRange = [];
         this.resetForm("queryForm");
-        this.queryParams.curPagerNo = 1;
+        this.handleQuery()
       },
     },
   };
