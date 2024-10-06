@@ -25,6 +25,14 @@
         >搜索
         </el-button
         >
+        <el-button
+          type="success"
+          icon="el-icon-download"
+          size="mini"
+          @click="handleExport"
+          v-show="false"
+        >导出
+        </el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
         >重置
         </el-button
@@ -130,6 +138,11 @@
       resetQuery() {
         this.resetForm("queryForm");
         this.handleQuery();
+      },
+      handleExport() {
+        this.downloadJson('/report/excel/driver/secondary/information', {
+          ...this.queryParams
+        }, `${new Date().getTime()}.xlsx`)
       },
     },
   };

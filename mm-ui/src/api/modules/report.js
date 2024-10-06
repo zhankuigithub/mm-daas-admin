@@ -12,3 +12,11 @@ export function reportInfo(reportName, data) {
         data: data
     })
 }
+
+export function exportExcel(reportName, data) {
+  return request({
+    url: `/report/excel/${reportName}`,
+    method: 'post',
+    data: data
+  })
+}
