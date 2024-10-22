@@ -1,0 +1,131 @@
+<!--17.实际承运人信息统计表-->
+<template>
+  <div class="app-container">
+    <el-form
+      :model="queryParams"
+      ref="queryForm"
+      size="mini"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
+    >
+      <el-form-item prop="settleTime1" label="时间">
+        <el-date-picker
+          v-model="queryParams.settleTime1"
+          type="month"
+          format="yyyy-MM"
+          value-format="yyyy-MM"
+          placeholder="开始"
+        ></el-date-picker>
+      </el-form-item>
+
+      <el-form-item prop="settleTime2">
+        <el-date-picker
+          v-model="queryParams.settleTime2"
+          type="month"
+          format="yyyy-MM"
+          value-format="yyyy-MM"
+          placeholder="结束"
+        ></el-date-picker>
+      </el-form-item>
+
+      <el-form-item>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
+        >搜索
+        </el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+        >重置
+        </el-button
+        >
+      </el-form-item>
+    </el-form>
+
+
+    <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
+      <el-table-column type="index" label="序号" align="center" />
+      <el-table-column label="业务归属部门" align="center" prop="businessDepartment"/>
+      <el-table-column label="托运人名称" align="center" prop="shipperName"/>
+      <el-table-column label="承运人名称" align="center" prop="carrierName"/>
+      <el-table-column label="线路" align="center" prop="route"/>
+      <el-table-column label="托运货品名称" align="center" prop="cargoName"/>
+      <el-table-column label="平均运距" align="center" prop="averageDistance"/>
+      <el-table-column label="平均运价" align="center" prop="averageFreight"/>
+      <el-table-column label="运输周期" align="center" prop="transportCycle"/>
+      <el-table-column label="运输时间" align="center" prop="transportTime"/>
+      <el-table-column label="运单签收时间" align="center" prop="waybillSignTime"/>
+      <el-table-column label="司机提现时间" align="center" prop="driverWithdrawalTime"/>
+      <el-table-column label="每月沉淀在平台资金数" align="center" prop="monthlyPlatformDepositedFunds"/>
+      <el-table-column label="司机提现频次（每月）" align="center" prop="driverWithdrawalFrequencyMonthly"/>
+      <el-table-column label="司机提现频次（年度）" align="center" prop="driverWithdrawalFrequencyAnnually"/>
+    </el-table>
+
+
+    <pagination
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.curPagerNo"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
+    />
+
+  </div>
+</template>
+
+<script>
+  import {getThousandNum} from '@/utils'
+
+  export default {
+    name: "index",
+    data() {
+      return {
+        // 遮罩层
+        loading: true,
+        // 显示搜索条件
+        showSearch: true,
+        // 总条数
+        total: 0,
+        // 表格数据
+        list: [],
+        // 是否显示弹出层
+        open: false,
+        opType: "",
+        // 日期范围
+        dateRange: [],
+        // 查询参数
+        queryParams: {
+          curPagerNo: 1,
+          pageSize: 10,
+        },
+        editRecord: {},
+      };
+    },
+    created() {
+      this.getList();
+    },
+    methods: {
+      getThousandNum,
+      getList() {
+        this.loading = true;
+        this.$api.report.reportInfo('nmjt/stat/0009', this.queryParams).then((response) => {
+          this.list = response.result.page.list;
+          this.total = response.result.page.rowsCount;
+          this.loading = false;
+        });
+      },
+      handleQuery() {
+        this.queryParams.curPagerNo = 1;
+        this.getList();
+      },
+      resetQuery() {
+        this.dateRange = [];
+        this.resetForm("queryForm");
+        this.handleQuery()
+      },
+    },
+  };
+</script>
