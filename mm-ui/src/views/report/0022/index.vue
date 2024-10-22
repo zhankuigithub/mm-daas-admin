@@ -1,4 +1,4 @@
-<!--8.档案表-->
+<!--22.货主投诉情况统计表-->
 <template>
   <div class="app-container">
     <el-form
@@ -44,29 +44,14 @@
         >
       </el-form-item>
     </el-form>
-
-
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
       <el-table-column type="index" label="序号" align="center" />
-      <el-table-column label="企业名称" align="center" prop="enterpriseName"/>
-      <el-table-column label="合作编号" align="center" prop="cooperationNo"/>
-      <el-table-column label="合作时间" align="center" prop="cooperationTime"/>
-      <el-table-column label="所各区域" align="center" prop="allAreas"/>
-      <el-table-column label="代理区域" align="center" prop="agencyArea"/>
-      <el-table-column label="对客报价" align="center" prop="quotedPrice">
-        <template slot-scope="scope">
-          <span>{{
-            getThousandNum(scope.row.quotedPrice)
-          }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="实际结算价" align="center" prop="settlementPrice"/>
-      <el-table-column label="差" align="center" prop="difference"/>
-      <el-table-column label="业务人员" align="center" prop="businessPerson"/>
-      <el-table-column label="发票种类" align="center" prop="invoiceType"/>
-      <el-table-column label="服务商名称" align="center" prop="serviceProviderName"/>
-      <el-table-column label="二级服务商" align="center" prop="secondaryServiceProvider"/>
-      <el-table-column label="备注" align="center" prop="remarks"/>
+      <el-table-column label="货主" align="center" prop="shipper"/>
+      <el-table-column label="投诉数量" align="center" prop="complaintCount"/>
+      <el-table-column label="环比" align="center" prop="monthOnMonth"/>
+      <el-table-column label="同比" align="center" prop="yearOnYear"/>
+      <el-table-column label="投诉原因" align="center" prop="complaintReason"/>
+      <el-table-column label="投诉占比" align="center" prop="complaintPercentage"/>
     </el-table>
 
     <pagination
@@ -81,7 +66,8 @@
 </template>
 
 <script>
-  import { getThousandNum } from '@/utils'
+  import {getThousandNum} from '@/utils'
+
   export default {
     name: "index",
     data() {
@@ -114,7 +100,7 @@
       getThousandNum,
       getList() {
         this.loading = true;
-        this.$api.report.reportInfo('nmjt/stat/0008', this.queryParams).then((response) => {
+        this.$api.report.reportInfo('nmjt/stat/0009', this.queryParams).then((response) => {
           this.list = response.result.page.list;
           this.total = response.result.page.rowsCount;
           this.loading = false;

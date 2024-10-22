@@ -1,4 +1,4 @@
-<!--8.档案表-->
+<!--21.货主结算周期统计表-->
 <template>
   <div class="app-container">
     <el-form
@@ -44,29 +44,16 @@
         >
       </el-form-item>
     </el-form>
-
-
     <el-table ref="tables" v-loading="loading" :data="list" size="mini" border>
       <el-table-column type="index" label="序号" align="center" />
-      <el-table-column label="企业名称" align="center" prop="enterpriseName"/>
-      <el-table-column label="合作编号" align="center" prop="cooperationNo"/>
-      <el-table-column label="合作时间" align="center" prop="cooperationTime"/>
-      <el-table-column label="所各区域" align="center" prop="allAreas"/>
-      <el-table-column label="代理区域" align="center" prop="agencyArea"/>
-      <el-table-column label="对客报价" align="center" prop="quotedPrice">
-        <template slot-scope="scope">
-          <span>{{
-            getThousandNum(scope.row.quotedPrice)
-          }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="实际结算价" align="center" prop="settlementPrice"/>
-      <el-table-column label="差" align="center" prop="difference"/>
-      <el-table-column label="业务人员" align="center" prop="businessPerson"/>
-      <el-table-column label="发票种类" align="center" prop="invoiceType"/>
-      <el-table-column label="服务商名称" align="center" prop="serviceProviderName"/>
-      <el-table-column label="二级服务商" align="center" prop="secondaryServiceProvider"/>
-      <el-table-column label="备注" align="center" prop="remarks"/>
+      <el-table-column label="货主" align="center" prop="shipper"/>
+      <el-table-column label="运单号" align="center" prop="waybillNo"/>
+      <el-table-column label="平台签收时间" align="center" prop="platformSignTime"/>
+      <el-table-column label="货主签收时间" align="center" prop="shipperSignTime"/>
+      <el-table-column label="货主充值时间" align="center" prop="shipperRechargeTime"/>
+      <el-table-column label="结算时间" align="center" prop="settlementTime"/>
+      <el-table-column label="签收周期" align="center" prop="signCycle"/>
+      <el-table-column label="结算周期（结算时间-平台签收时间）" align="center" prop="settlementCycle"/>
     </el-table>
 
     <pagination
@@ -81,7 +68,8 @@
 </template>
 
 <script>
-  import { getThousandNum } from '@/utils'
+  import {getThousandNum} from '@/utils'
+
   export default {
     name: "index",
     data() {
@@ -114,7 +102,7 @@
       getThousandNum,
       getList() {
         this.loading = true;
-        this.$api.report.reportInfo('nmjt/stat/0008', this.queryParams).then((response) => {
+        this.$api.report.reportInfo('nmjt/stat/0009', this.queryParams).then((response) => {
           this.list = response.result.page.list;
           this.total = response.result.page.rowsCount;
           this.loading = false;
