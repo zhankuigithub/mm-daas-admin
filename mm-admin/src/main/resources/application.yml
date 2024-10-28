@@ -8,7 +8,7 @@ mm:
   copyrightYear: 2023
   # 实例演示开关
   demoEnabled: true
-  profile: D:/mm/uploadPath
+  profile: ./uploadPath
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数字计算 char 字符验证
